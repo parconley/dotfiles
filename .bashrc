@@ -146,12 +146,30 @@ export PATH="$PATH:~/.gem/ruby/1.8/bin"
 export PATH=$PATH:/usr/local/pgsql/bin
 export PATH=$PATH:/Library/PostgreSQL/8.3/bin
 
-# Unbreak broken, non-colored terminal
-export TERM='xterm-color'
-alias ls='ls -G'
-alias ll='ls -lG'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
+# Set terminal to support 256 colors for Solarized
+export TERM='xterm-256color'
+
+# Solarized dircolors for ls
+# Using LS_COLORS for Linux (dircolors format)
+# Format: di=directory, fi=file, ln=symlink, ex=executable, etc.
+export LS_COLORS='di=34;1:fi=0:ln=36:pi=33:so=35:bd=34;46:cd=34;43:or=31;5:mi=31;5:ex=32;1:*.tar=31:*.tgz=31:*.arc=31:*.arj=31:*.taz=31:*.lha=31:*.lz4=31:*.lzh=31:*.lzma=31:*.tlz=31:*.txz=31:*.tzo=31:*.t7z=31:*.zip=31:*.z=31:*.dz=31:*.gz=31:*.lrz=31:*.lz=31:*.lzo=31:*.xz=31:*.zst=31:*.tzst=31:*.bz2=31:*.bz=31:*.tbz=31:*.tbz2=31:*.tz=31:*.deb=31:*.rpm=31:*.jar=31:*.war=31:*.ear=31:*.sar=31:*.rar=31:*.alz=31:*.ace=31:*.zoo=31:*.cpio=31:*.7z=31:*.rz=31:*.cab=31:*.wim=31:*.swm=31:*.dwm=31:*.esd=31:*.jpg=35:*.jpeg=35:*.mjpg=35:*.mjpeg=35:*.gif=35:*.bmp=35:*.pbm=35:*.pgm=35:*.ppm=35:*.tga=35:*.xbm=35:*.xpm=35:*.tif=35:*.tiff=35:*.png=35:*.svg=35:*.svgz=35:*.mng=35:*.pcx=35:*.mov=35:*.mpg=35:*.mpeg=35:*.m2v=35:*.mkv=35:*.webm=35:*.ogm=35:*.mp4=35:*.m4v=35:*.mp4v=35:*.vob=35:*.qt=35:*.nuv=35:*.wmv=35:*.asf=35:*.rm=35:*.rmvb=35:*.flc=35:*.avi=35:*.fli=35:*.flv=35:*.gl=35:*.dl=35:*.xcf=35:*.xwd=35:*.yuv=35:*.cgm=35:*.emf=35:*.ogv=35:*.ogx=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.ogg=36:*.ra=36:*.wav=36:*.oga=36:*.opus=36:*.spx=36:*.xspf=36:'
+
+# macOS ls colors (using LSCOLORS for BSD ls)
+# Solarized-friendly colors: directories=blue, executables=green, etc.
+export LSCOLORS="ExGxcxdxCxegedabagacad"
+
+# Set ls alias based on OS
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    alias ls='ls --color=auto'
+    alias ll='ls -lh --color=auto'
+else
+    alias ls='ls -G'
+    alias ll='ls -lhG'
+fi
+
+# Solarized colors for grep
+export GREP_COLORS='ms=01;33:mc=01;33:sl=:cx=:fn=32:ln=36:bn=36:se=34'
+alias grep='grep --color=auto'
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -185,7 +203,9 @@ grb_git_prompt() {
         echo ${GIT_PROMPT}
     fi
 }
-PS1="\h:\W\$(grb_git_prompt) \u\$ "
+# Solarized prompt with nice highlighting
+# Format: [user@host:dir](git-info) $
+PS1="\[${SOLARIZED_CYAN}\]\u\[${SOLARIZED_BASE0}\]@\[${SOLARIZED_BLUE}\]\h\[${SOLARIZED_BASE0}\]:\[${SOLARIZED_YELLOW}\]\W\[${NORMAL}\]\$(grb_git_prompt) \[${SOLARIZED_GREEN}\]\$\[${NORMAL}\] "
 
 activate_virtualenv() {
     if [ -f env/bin/activate ]; then . env/bin/activate;
