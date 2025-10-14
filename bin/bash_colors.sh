@@ -24,27 +24,55 @@ BG_WHITE=47
 BG_NULL=00
 
 ##
-# ANSI Escape Commands
+# Solarized Color Palette
 ##
+# These use 256-color codes for better Solarized compatibility
 ESC="\033"
+
+# Solarized base colors (using 256-color palette)
+SOLARIZED_BASE03="\033[38;5;234m"   # background
+SOLARIZED_BASE02="\033[38;5;235m"   # background highlights
+SOLARIZED_BASE01="\033[38;5;240m"   # comments/secondary
+SOLARIZED_BASE00="\033[38;5;241m"   # body text
+SOLARIZED_BASE0="\033[38;5;244m"    # primary content
+SOLARIZED_BASE1="\033[38;5;245m"    # emphasized content
+SOLARIZED_BASE2="\033[38;5;254m"    # light background highlights
+SOLARIZED_BASE3="\033[38;5;230m"    # light background
+
+# Solarized accent colors
+SOLARIZED_YELLOW="\033[38;5;136m"   # #b58900
+SOLARIZED_ORANGE="\033[38;5;166m"   # #cb4b16
+SOLARIZED_RED="\033[38;5;160m"      # #dc322f
+SOLARIZED_MAGENTA="\033[38;5;125m"  # #d33682
+SOLARIZED_VIOLET="\033[38;5;61m"    # #6c71c4
+SOLARIZED_BLUE="\033[38;5;33m"      # #268bd2
+SOLARIZED_CYAN="\033[38;5;37m"      # #2aa198
+SOLARIZED_GREEN="\033[38;5;64m"     # #859900
+
+##
+# ANSI Escape Commands (using Solarized colors)
+##
 NORMAL="$ESC[m"
-RESET="$ESC[${DULL};${FG_WHITE};${BG_NULL}m"
+RESET="$SOLARIZED_BASE0"
 
-BLACK="$ESC[${DULL};${FG_BLACK}m"
-RED="$ESC[${DULL};${FG_RED}m"
-GREEN="$ESC[${DULL};${FG_GREEN}m"
-YELLOW="$ESC[${DULL};${FG_YELLOW}m"
-BLUE="$ESC[${DULL};${FG_BLUE}m"
-VIOLET="$ESC[${DULL};${FG_VIOLET}m"
-CYAN="$ESC[${DULL};${FG_CYAN}m"
-WHITE="$ESC[${DULL};${FG_WHITE}m"
+# Map standard color names to Solarized equivalents
+BLACK="$SOLARIZED_BASE02"
+RED="$SOLARIZED_RED"
+GREEN="$SOLARIZED_GREEN"
+YELLOW="$SOLARIZED_YELLOW"
+BLUE="$SOLARIZED_BLUE"
+VIOLET="$SOLARIZED_VIOLET"
+CYAN="$SOLARIZED_CYAN"
+WHITE="$SOLARIZED_BASE2"
+ORANGE="$SOLARIZED_ORANGE"
+MAGENTA="$SOLARIZED_MAGENTA"
 
-# BRIGHT TEXT
-BRIGHT_BLACK="$ESC[${BRIGHT};${FG_BLACK}m"
+# BRIGHT TEXT (using Solarized emphasized colors)
+BRIGHT_BLACK="$SOLARIZED_BASE03"
 BRIGHT_RED="$ESC[${BRIGHT};${FG_RED}m"
 BRIGHT_GREEN="$ESC[${BRIGHT};${FG_GREEN}m"
 BRIGHT_YELLOW="$ESC[${BRIGHT};${FG_YELLOW}m"
 BRIGHT_BLUE="$ESC[${BRIGHT};${FG_BLUE}m"
 BRIGHT_VIOLET="$ESC[${BRIGHT};${FG_VIOLET}m"
 BRIGHT_CYAN="$ESC[${BRIGHT};${FG_CYAN}m"
-BRIGHT_WHITE="$ESC[${BRIGHT};${FG_WHITE}m"
+BRIGHT_WHITE="$SOLARIZED_BASE3"
