@@ -129,7 +129,7 @@ export NVM_DIR="$HOME/.nvm"
 alias cursor="/mnt/c/Users/pconley1/AppData/Local/Programs/cursor/Cursor.exe"
 nvm use 20
 export PATH="$HOME/bin:$PATH"
-alias claude="/home/parker/.claude/local/claude"
+# claude is now installed via npm globally
 export PATH=$PATH:~/bin
 
 # Copying Gary Bernhardt's .bashrc below to get the .githelpers file to work
@@ -187,20 +187,21 @@ function minutes_since_last_commit {
     echo $minutes_since_last_commit
 }
 grb_git_prompt() {
-    local g="$(__gitdir)"
+    local g="$(git rev-parse --git-dir 2>/dev/null)"
     if [ -n "$g" ]; then
         local MINUTES_SINCE_LAST_COMMIT=`minutes_since_last_commit`
         if [ "$MINUTES_SINCE_LAST_COMMIT" -gt 30 ]; then
-            local COLOR=${RED}
+            local COLOR=$'\001\033[38;5;160m\002'
         elif [ "$MINUTES_SINCE_LAST_COMMIT" -gt 10 ]; then
-            local COLOR=${YELLOW}
+            local COLOR=$'\001\033[38;5;136m\002'
         else
-            local COLOR=${GREEN}
+            local COLOR=$'\001\033[38;5;64m\002'
         fi
-        local SINCE_LAST_COMMIT="${COLOR}$(minutes_since_last_commit)m${NORMAL}"
+        local RESET=$'\001\033[0m\002'
+        local SINCE_LAST_COMMIT="${COLOR}${MINUTES_SINCE_LAST_COMMIT}m${RESET}"
         # The __git_ps1 function inserts the current git branch where %s is
         local GIT_PROMPT=`__git_ps1 "(%s|${SINCE_LAST_COMMIT})"`
-        echo ${GIT_PROMPT}
+        echo "${GIT_PROMPT}"
     fi
 }
 # Solarized prompt with nice highlighting
@@ -222,5 +223,6 @@ python_module_dir () {
 }
 
 source ~/bin/git-completion.bash
+source ~/bin/git-prompt.sh
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
